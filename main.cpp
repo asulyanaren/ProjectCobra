@@ -1,10 +1,12 @@
 #include <iostream>
 
-int main() {
+int main() {      
+
+  //Heracnel erkchap zangvaci ROWs@
    int k;
    std::cin >> k;
-   int row=6;
-   int col=5;
+   int row=3;
+   int col=3;
    int** arr = new int*[row];
    for(int i=0; i<row; i++){
          arr[i] = new int[col];
