@@ -3,7 +3,7 @@
  using namespace std;
 
  int main() {
-
+      // Gtnel toxum amenashat krknvox simvol@
 	 char str[] = "Aren Asulyyan";
 	  
 	  int size = strlen(str);
