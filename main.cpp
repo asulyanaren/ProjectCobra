@@ -1,46 +1,40 @@
 #include <iostream>
 
-int main() {      
+int main() {
+   
+   // Spiraladzev Array
+    const int n = 3;
+    int arr[n][n];
 
-  //Heracnel erkchap zangvaci ROWs@
-   int k;
-   std::cin >> k;
-   int row=3;
-   int col=3;
-   int** arr = new int*[row];
-   for(int i=0; i<row; i++){
-         arr[i] = new int[col];
-    }
-
-   for(int i=0; i < row; i++){
-     for(int j=0; j < col; j++){
-           std::cin >> arr[i][j];
-         }
-         
-      }
-  
-  
-        std::cout<<std::endl;
-      delete[] arr[k-1];
-      int** tmp = new int*[row-1];
-      int tmpI=0;
-     for(int i=0; i < row; i++){
-          if(i != k-1){
-            tmp[tmpI++] = arr[i];
-           }
+    for(int i=0; i<n; i++){
+      for(int j=0; j<n; j++){
+            std::cin>>arr[i][j];
         }
-           delete[] arr;
-           arr = tmp;
-           row = row - 1;
-       
-         
-      std::cout <<std::endl;
+      }
+
     
-      for(int i=0;i < row; i++){
-        for(int j=0; j < col; j++){
-                 std::cout << arr[i][j]<< "  ";     
-               }
-            std::cout << std::endl;
-         }
-            
+       int len = n;
+       int p = 0;
+       int i;
+       int k=1;
+       while(k<=n*n){
+      for(i=p; i<len; i++){
+           k++;
+           std::cout<<arr[p][i]<< " ";
+          }
+      for(i=p+1;i<len;i++){
+            k++;
+            std::cout<<arr[i][len-1]<<" ";
+           }
+      for(i=len-2; i>=p;i--){
+            k++;
+            std::cout<< arr[len-1][i]<<" ";
+      }
+      for(i=len-2; i>p; i--){
+            k++;
+            std::cout<< arr[i][p] << " ";
+      }
+          p++; len=len-1;
+       }
+     
 }
