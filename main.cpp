@@ -1,91 +1,83 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//#include "shape.h"
-//#include "ball.h"
-//#include "pyramid.h"
-//#include "cube.h"
-using namespace std;
-// Base Class Shape
-class Shape{
-           public:
-           virtual ~Shape(){}
-           virtual float getvolume()=0;
- };
-         
-class Pyramid{
-           public:
-           Pyramid(float base, float width)
-           :m_base(base)
-           ,m_width(width)
-            {}
-virtual ~Pyramid(){}
-virtual  float getvolume(){  return (0.3333333) * (m_base * m_base * m_width); }
+//#include "group.h"
+//#include "worker.h"
+
+class Worker{
+   public:
+   Worker(const std::string n, const std::string sn, int by)
+      :m_name(n)
+      ,m_surname(sn)
+      ,born_year(by)
+      {}
+    ~Worker(){}
+      int print(){
+          return born_year;
+       }
  
- private:
- float m_base;
- float m_width;
+   private:
+   std::string  m_name;
+   std::string  m_surname;
+   int          born_year;
+
 };
 
-class Cube{
-  public:   //Constructor
-         Cube(float cub)
-         :m_cube(cub)
-          {}
 
-  virtual ~Cube(){}//Destructor of Cube
-  virtual float getvolume(){ return m_cube * m_cube * m_cube; }
-   private:
-          float m_cube;
- };
-
-class Ball{
-     public:
-         Ball(float bal)
-         :m_ball(bal)
-          {}
-      virtual ~Ball(){} //Destructor of Ball
-
-      const float p = 3.1415;
-      virtual float getvolume(){ return (4 * p * m_ball * m_ball * m_ball) / 3 ; }
-      private:
-          float m_ball;
+class Group{
+  public:
+      Group(const std::string& name, int n)
+                         :m_name(name)
+                          ,m_num(n)
+                                 {}
+  
+     void addworker(const Worker& worker){ m_worker.push_back(worker);}
+     int get_born(int n){ return m_worker[n].print();}
+     void print(){ std::cout<< m_name<<"\n"; }
+  private:
+      std::string  m_name;
+      int           m_num;
+      std::vector <Worker> m_worker;
  };
 
 int main() {
+    const int z = 1974;
     int n;
-    string name;  // name of Shape
-    std::vector<float> m_shape;
-    std::cin >>n;   
-    for(int i=0; i < n; i++){
-           std::cin >> name;  // input Shape name ..Ball or Cube or Pyramid
-             if(name == "Ball"){
-                float b;
-                std::cin >>b;
-                Ball l(b);
-                m_shape.push_back(l.getvolume());
-               }         
-         
-            if(name == "Cube"){
-              float c;
-              std::cin >> c;
-              Cube u(c);
-              m_shape.push_back(u.getvolume());
-             }
-            if(name == "Pyramid"){
-               float e;
-               float c;
-               std::cin>> e >> c;
-               Pyramid p(e, c);
-               m_shape.push_back(p.getvolume());
-               }
-    } 
+    std::vector <Group> groups;
+    std::string name;
+    std::string surname;
+    std::string groupname;
+    int born;
+    int groupnumber;
+    std::cin>>n;
+  for(int i = 0; i < n; i++){
+           std::cin>> groupname;
+           std::cin>> groupnumber;
+           Group g(groupname, groupnumber);
+       for(int j = 0; j < groupnumber; j++){
+              std::cin >> name >> surname  >> born;
+               Worker w(name, surname, born);
+               g.addworker(w);
+              }
+        groups.push_back(g);
+    }
+  
+   bool check = false;
+    for(int i=0; i<n; i++){
+        int sum = 0;
+        for(int j=0; j < groupnumber; j++){
+             if(groups[i].get_born(j) >  z){
+             sum++;
+             };
+               if(sum == groupnumber){
+                   groups[i].print();
+                   check  = true;
+                 }
+           }
+      }
       
-    
-         float sum = 0;
-         
-         for(int i=0; i < n; i++){
-              sum = sum + m_shape[i];
-             }
-         std::cout << sum;
+      if(check == false){
+        std::cout << "Not found!";
+      }
+
 }
